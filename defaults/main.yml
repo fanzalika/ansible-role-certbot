@@ -20,7 +20,7 @@ certbot_certs: []
 certbot_is_test_certs: true
 certbot_create_command: >-
   {{ certbot_script }} certonly --standalone --noninteractive --agree-tos
-  {{ ( certbot_is_test_certs == true ) | tenary('--test-cert', '') }}
+  {{ certbot_is_test_certs | ternary('--test-cert', '') }}
   --email {{ cert_item.email | default(certbot_admin_email) }}
   -d {{ cert_item.domains | join(',') }}
 
